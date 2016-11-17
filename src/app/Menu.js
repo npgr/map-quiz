@@ -27,11 +27,7 @@ export default class Menu extends React.Component {
 	 const { goPage } = this
 	
 	 var barStyle = {backgroundColor: '#3a80ab', fontSize: '16px', fontWeight: '200'}
-	 var ShopIStyle = { color: '68c122', marginRight: "5px"}
-	 var SavedIStyle = { color: 'blue', marginRight: "5px"}
 	 var ProdIStyle = { color: 'EC407A', marginRight: "5px"}
-	 var CustIStyle = { color: 'AB47BC', marginRight: "5px"}
-	 var SetIStyle = { color: 'F57C00', marginRight: "5px"}
 	 var AboutIStyle = { color: '1E88E5', marginRight: "5px"}
 	 var imgStyle = { width: '200px', height: '95px'}
 	 var menuStyle = {color:'white',marginTop:'-43px',marginLeft:'120px',fontSize:'20px',marginBottom:'27px'}
@@ -42,17 +38,7 @@ export default class Menu extends React.Component {
 		<h2 style={menuStyle}>Menu</h2>
 		<div className="menuItem" onClick={goPage} id="/">
 			<ProdIcon style={ProdIStyle}/>
-			Products
-		</div>
-		<hr />
-		<div className="menuItem" onClick={goPage} id="customers">
-			<CustIcon style={CustIStyle}/>
-			Customers
-		</div>
-		<hr />
-		<div className="menuItem" onClick={goPage} id="settings">
-			<SetIcon style={SetIStyle}/>
-			Settings
+			Dashboard
 		</div>
 		<hr />
 		<div className="menuItem" onClick={goPage} id="about">
