@@ -7,12 +7,6 @@ import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 
 export default class Layout extends React.Component {
 	
-	/*constructor(props) {
-		super(props)
-		
-		this.closeMenu = this.closeMenu.bind(this)
-	}*/
-	
 	goPage = this.goPage.bind(this)
  
 	goPage(e) {
