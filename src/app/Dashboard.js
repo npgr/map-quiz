@@ -9,7 +9,7 @@ export default class Dashboard extends React.Component {
 			panel1Open: true,
 			panel2Open: true
 		}
-		this.country = 'prueba'
+		window.country = 'prueba2'
 		
 		this.panel1Toggle = this.panel1Toggle.bind(this)
 		this.panel2Toggle = this.panel2Toggle.bind(this)
@@ -55,7 +55,7 @@ export default class Dashboard extends React.Component {
               borderWidth: 0.5,
 			  popupTemplate: function(geography, data) {
 				//Load some data
-				this.country = geography.properties.iso
+				window.country = geography.properties.iso
 				return '<div class="hoverinfo">Country: ' + geography.properties.name 
 				//+ '<br>Population: '+data.population+'</div>'
 			  },
@@ -113,8 +113,12 @@ export default class Dashboard extends React.Component {
 	}
 	
 	change_map(e) {
-		console.log()
+		//console.log()
 		this.load_map(e.target.value)
+	}
+	
+	msg() {
+		console.log(window.country)
 	}
 	
 	render() {
@@ -129,9 +133,9 @@ export default class Dashboard extends React.Component {
 					</Col>
 					<Col sm={4} md={4} lg={3}>
 					  <FormControl onChange={this.change_map.bind(this)} componentClass="select">
+						<option value="world">World</option>
 						<option value="usa">USA</option>
 						<option value="fra">France</option>
-						<option value="world">World</option>
 					  </FormControl>
 					</Col>
 				  </FormGroup>
@@ -147,7 +151,7 @@ export default class Dashboard extends React.Component {
 		  <Row>
 		    <Col sm={9} md={9} lg={9}>
 			  <Panel header={panel1Header} bsStyle="success" style={{backgroundColor: "#d8ecf3"}}>
-					<div id="theMap">Loading Map...</div>
+					<div id="theMap" onClick={this.msg.bind(this)}>Loading Map...</div>
 		      </Panel>
 			</Col>
 		    <Col sm={3} md={3} lg={3}>
@@ -158,7 +162,6 @@ export default class Dashboard extends React.Component {
 					<option value="select">Value 1</option>
 					<option value="other">Value 2</option>
 				</FormControl>
-				{this.country}
 			  </FormGroup>
 			  </Panel>
 			  <Panel collapsible expanded={panel2Open} header={panel2Header} bsStyle="primary">
