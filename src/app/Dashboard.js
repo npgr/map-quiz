@@ -30,7 +30,7 @@ export default class Dashboard extends React.Component {
             //scope: 'world',
 			//scope: 'usa',
 			scope: map,
-			//projection: 'mercator',
+			projection: 'mercator',
             element: document.getElementById('theMap'),
 			// Zoom 
 			/*setProjection: function(element) {
@@ -49,7 +49,7 @@ export default class Dashboard extends React.Component {
 
 				return {path: path, projection: projection};
 			},*/
-			height: 380,
+			height: 420,
 			geographyConfig: {
               borderColor: '#444',
               borderWidth: 0.5,
