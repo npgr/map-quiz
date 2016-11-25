@@ -1,8 +1,10 @@
 import React from "react";
+import { observer } from "mobx-react"
 import { Form, Glyphicon, FormGroup, FormControl, ControlLabel, Panel, Grid, Row, Col } from "react-bootstrap";
 import store from "./store/StateStore"
 import Map from "./Map.js"
 
+@observer
 export default class Dashboard extends React.Component {
 
 	constructor(props) {
@@ -31,8 +33,6 @@ export default class Dashboard extends React.Component {
 	
 	panel2Toggle = () => this.setState({panel2Open: !this.state.panel2Open})
 	
-	//load_world = () => this.load_map('world')
-	
 	change_map(e) {
 		Map.load_map(e.target.value)
 	}
@@ -52,6 +52,10 @@ export default class Dashboard extends React.Component {
 			Map.updateChoropleth(obj); 
 			 }.bind(this)
 		  , 2500)
+	}
+	
+	next() {
+		store.next()
 	}
 	
 	render() {
@@ -75,10 +79,20 @@ export default class Dashboard extends React.Component {
 			 </Form>
 		)
 		
+		/*const panel1Header = (
+			<div onClick={panel1Toggle}>Question</div>
+		)*/
+		
 		const panel2Header = (
-			<div onClick={panel2Toggle}>Data</div>
+			<div onClick={panel2Toggle}>Result</div>
 		)
 	
+		var bottom = (<div></div>)
+		if (store.quiz.id == 0)
+			bottom = (<button onClick={this.next.bind(this)}>Start</button>)
+		 else if (store.quiz.answer == '')
+			bottom = (<button onClick={this.next.bind(this)}>Next</button>)
+		
 	  return (
 		<Grid>
 		  <Row>
@@ -88,22 +102,15 @@ export default class Dashboard extends React.Component {
 		      </Panel>
 			</Col>
 		    <Col sm={3} md={3} lg={3}>
-			  <Panel collapsible expanded={panel1Open} header="Select Map" bsStyle="success">
-		      <FormGroup controlId="formControlsSelect1">
-				<ControlLabel>Select</ControlLabel>
-				<FormControl componentClass="select" placeholder="Value 2">
-					<option value="select">Value 1</option>
-					<option value="other">Value 2</option>
-				</FormControl>
-			  </FormGroup>
+			  <Panel collapsible expanded={panel1Open} header="Question" bsStyle="success">
+				  <div>{store.quiz.question}</div>
+				  <div>{store.quiz.answer}</div>
+				  <div>{bottom}</div>
 			  </Panel>
 			  <Panel collapsible expanded={panel2Open} header={panel2Header} bsStyle="primary">
-				<FormGroup controlId="formControlsSelect2">
-				<FormControl componentClass="select">
-					<option value="select">Value 1</option>
-					<option value="other">Value 2</option>
-				</FormControl>
-			  </FormGroup>
+				<div>Questions: {store.result.questions}</div>
+				<div>Rigth: {store.result.rigth}</div>
+				<div>Wrong: {store.result.wrong}</div>
 		      </Panel>
 			</Col>
 		  </Row> 
