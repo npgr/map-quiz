@@ -4,4 +4,6 @@
 
    Early Stage
    
-   View Live demo on http://github/npgr/map-stats
+   View Live demo on this [link](https://npgr.github.io/map-stats)
+   
+   Special thanks to [datamaps](https://github.com/markmarkoh/datamaps)
