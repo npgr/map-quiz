@@ -27,7 +27,7 @@ class StateStore {
 	constructor() {
 		
 		/** Load States Data **/
-		this.load_from_url()
+		//this.load_from_url()
 		//console.log('MyData: ', mydata)
 	}
 	
@@ -47,13 +47,13 @@ class StateStore {
 		return this.states[this.quiz.id]
 	}
 	
-	load_from_url() {
+	load_from_url(country) {
 		/*fetch('data/usa2.json')
 		.then(function(res) {
 				console.log('fetch maps: ', res)
 				store.states = res.data
 			})*/
-		axios.get('data/usa.json')
+		axios.get('data/'+country+'.json')
 			.then(function(res) {
 				this.states = res.data
 			}.bind(this))

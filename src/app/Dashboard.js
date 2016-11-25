@@ -13,10 +13,10 @@ export default class Dashboard extends React.Component {
 			panel1Open: true,
 			panel2Open: true
 		}
-		window.country = 'prueba2'
 		
 		this.panel1Toggle = this.panel1Toggle.bind(this)
 		this.panel2Toggle = this.panel2Toggle.bind(this)
+		store.load_from_url('usa')
 		setTimeout(function() {
 			//this.load_map('world') }.bind(this)
 			Map.load_map('usa') }.bind(this)
