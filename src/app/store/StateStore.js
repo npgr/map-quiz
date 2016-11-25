@@ -9,7 +9,7 @@ class StateStore {
 	@observable 
 	quiz =
 	{
-		id: 0,
+		id: -1,
 		question: 'Press Button for Starting Quiz',
 		answer: ''
 	}
@@ -36,11 +36,15 @@ class StateStore {
 		{
 			this.quiz.id++
 			this.quiz.question = 'Where is located '+this.states[this.quiz.id].name+'?'
-			this.result.questions++
-			this.result.rigth++
+			//this.result.questions++
+			//this.result.rigth++
 		}
 		else
 			this.quiz.question = 'End of Quiz'
+	}
+	
+	answer() {
+		return this.states[this.quiz.id]
 	}
 	
 	load_from_url() {
@@ -59,9 +63,9 @@ class StateStore {
 	}
 }
 
-var store = window.store = new StateStore
+//var store = window.store = new StateStore
 
-//var store = new StateStore
+var store = new StateStore
 
 export default store
 

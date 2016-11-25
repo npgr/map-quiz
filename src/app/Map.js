@@ -1,3 +1,7 @@
+//import "../assets/maps/topojson.min.js"
+//import "../assets/maps/d3.min.js"
+//import "../assets/maps/datamaps.all.hires.min.js"
+
 class MapClass {
 
 	load_map(map) {
@@ -38,10 +42,11 @@ class MapClass {
             },
 			fills: {
               'Red': 'red',
+			  'Green': 'green',
 			  'defaultFill': '#dddddd' 
 			},
 			data:{
-				"USA": {
+				/*"USA": {
 					"fillKey": "Red",
 					"population": 1000
 				},
@@ -56,7 +61,7 @@ class MapClass {
 				"AK": {
 					"fillKey": "Red",
 					"population": 1000
-				}
+				}*/
 			}
 		})
 	}

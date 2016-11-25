@@ -19,7 +19,7 @@ export default class Dashboard extends React.Component {
 		this.panel2Toggle = this.panel2Toggle.bind(this)
 		setTimeout(function() {
 			//this.load_map('world') }.bind(this)
-			Map.load_map('world') }.bind(this)
+			Map.load_map('usa') }.bind(this)
 		  , 1000)
 		  
 		/*setTimeout(function() {
@@ -38,7 +38,21 @@ export default class Dashboard extends React.Component {
 	}
 	
 	msg() {
-		var obj = {}
+		store.result.questions++
+		//console.log('answer: ', store.answer(), ' ,click: ', window.country.name) 
+		if (store.answer().name == window.country.name)
+		{
+			store.result.rigth++
+			alert('Correct !!!')
+		}
+			
+		 else
+		{
+			store.result.wrong++
+			alert('Incorrect !!!') 
+		}
+		store.next()	
+		/*var obj = {}
 		obj[window.country.iso] = 'green'
 		obj.FRA = 'green'
 		//obj[window.country.iso] = {fillKey: 'Red'}
@@ -51,11 +65,31 @@ export default class Dashboard extends React.Component {
 			obj.FRA = {fillKey: 'defaultFill'}
 			Map.updateChoropleth(obj); 
 			 }.bind(this)
-		  , 2500)
+		  , 2500)*/
 	}
 	
 	next() {
 		store.next()
+	}
+	
+	answer() {
+		store.result.questions++
+		store.result.wrong++
+		
+		var obj = {}
+		obj[store.answer().code] = 'green'
+		//obj[window.country.iso] = {fillKey: 'Red'}
+		//this.map.updateChoropleth(obj);
+		Map.updateChoropleth(obj);
+		//console.log(window.country)
+		
+		setTimeout(function() {
+			var obj = {}
+			obj[store.answer().code] = {fillKey: 'defaultFill'}
+			Map.updateChoropleth(obj); 
+			store.next()
+			}.bind(this)
+		  , 2000)
 	}
 	
 	render() {
@@ -70,9 +104,8 @@ export default class Dashboard extends React.Component {
 					</Col>
 					<Col sm={4} md={4} lg={3}>
 					  <FormControl onChange={this.change_map.bind(this)} componentClass="select">
-						<option value="world">World</option>
 						<option value="usa">USA</option>
-						<option value="fra">France</option>
+						<option value="world">World</option>
 					  </FormControl>
 					</Col>
 				  </FormGroup>
@@ -88,10 +121,10 @@ export default class Dashboard extends React.Component {
 		)
 	
 		var bottom = (<div></div>)
-		if (store.quiz.id == 0)
+		if (store.quiz.id == -1)
 			bottom = (<button onClick={this.next.bind(this)}>Start</button>)
-		 else if (store.quiz.answer == '')
-			bottom = (<button onClick={this.next.bind(this)}>Next</button>)
+		 else if (store.quiz.question != 'End of Quiz')
+			bottom = (<button onClick={this.answer.bind(this)}>Get Answer</button>)
 		
 	  return (
 		<Grid>
