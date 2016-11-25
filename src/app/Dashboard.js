@@ -138,7 +138,7 @@ export default class Dashboard extends React.Component {
 			  <Panel collapsible expanded={panel1Open} header="Question" bsStyle="success">
 				  <div>{store.quiz.question}</div>
 				  <div>{store.quiz.answer}</div>
-				  <div>{bottom}</div>
+				  <div style={{marginTop: '10px'}}>{bottom}</div>
 			  </Panel>
 			  <Panel collapsible expanded={panel2Open} header={panel2Header} bsStyle="primary">
 				<div>Questions: {store.result.questions}</div>
