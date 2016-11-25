@@ -1,6 +1,6 @@
 import React from "react";
 import { observer } from "mobx-react"
-import { Form, Glyphicon, FormGroup, FormControl, ControlLabel, Panel, Grid, Row, Col } from "react-bootstrap";
+import { Form, FormGroup, FormControl, ControlLabel, Button, Glyphicon, Panel, Grid, Row, Col } from "react-bootstrap";
 import store from "./store/StateStore"
 import Map from "./Map.js"
 
@@ -122,9 +122,9 @@ export default class Dashboard extends React.Component {
 	
 		var bottom = (<div></div>)
 		if (store.quiz.id == -1)
-			bottom = (<button onClick={this.next.bind(this)}>Start</button>)
+			bottom = (<Button bsStyle="success" onClick={this.next.bind(this)}>Start</Button>)
 		 else if (store.quiz.question != 'End of Quiz')
-			bottom = (<button onClick={this.answer.bind(this)}>Get Answer</button>)
+			bottom = (<Button bsStyle="success" onClick={this.answer.bind(this)}>Get Answer</Button>)
 		
 	  return (
 		<Grid>
