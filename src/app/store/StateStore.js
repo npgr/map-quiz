@@ -2,7 +2,7 @@
 /** Loading data from rest service - Using Axios **/
 import { observable } from "mobx"
 import axios from "axios";
-//import mydata from "../../data/usa2"
+import states from "../../data/usa2"
 
 class StateStore {
 
@@ -22,11 +22,12 @@ class StateStore {
 		wrong: 0
 	}
 	
-	states = []
+	states = states
 	
 	constructor() {
 		
 		/** Load States Data **/
+		//console.log('this.states: ', this.states) 
 		//this.load_from_url()
 		//console.log('MyData: ', mydata)
 	}
