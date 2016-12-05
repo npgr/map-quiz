@@ -48,7 +48,7 @@ class MapClass {
 			  popupTemplate: function(geography, data) {
 				//Load some data
 				window.country = geography.properties
-				if (showPopUp)
+				if (showPopUp=='yes')
 					return '<div class="hoverinfo">' + geography.properties.name 
 				//+ '<br>Population: '+data.population+'</div>'
 			  },

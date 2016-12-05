@@ -12,24 +12,15 @@ export default class Dashboard extends React.Component {
 		this.state = {
 			panel1Open: true,
 			panel2Open: true,
-			incorrectList: []
 		}
+		if (store.map == '') store.map = 'usa'
 		this.stateAnswer = ''
-		this.map = 'usa'
-		this.showPopUpA = true
 		this.panel1Toggle = this.panel1Toggle.bind(this)
 		this.panel2Toggle = this.panel2Toggle.bind(this)
-		//store.load_from_url('usa')
 		setTimeout(function() {
 			//this.load_map('world') }.bind(this)
-			Map.load_map(this.map, this.showPopUp) }.bind(this)
+			Map.load_map(store.map, store.showPopUp) }.bind(this)
 		  , 1000)
-		  
-		/*setTimeout(function() {
-			store.states.forEach(function(el) {
-				console.log('dashboard load: ',el)
-			})
-		}.bind(this), 2000)*/
 	}
 	
 	panel1Toggle = () => this.setState({panel1Open: !this.state.panel1Open})
@@ -37,8 +28,8 @@ export default class Dashboard extends React.Component {
 	panel2Toggle = () => this.setState({panel2Open: !this.state.panel2Open})
 	
 	change_map(e) {
-		this.map = e.target.value
-		Map.load_map(this.map, this.showPopUpA)
+		store.map = e.target.value
+		Map.load_map(store.map, store.showPopUp)
 	}
 	
 	msg() {
@@ -51,7 +42,6 @@ export default class Dashboard extends React.Component {
 			obj[store.answer().code] = 'green'
 			Map.updateChoropleth(obj)
 			store.next()	
-			//alert('Correct !!!')
 		}
 		 else
 		{
@@ -59,12 +49,11 @@ export default class Dashboard extends React.Component {
 			var obj = {}
 			obj[store.answer().code] = 'green'
 			Map.updateChoropleth(obj)
-			var incorrectList = this.state.incorrectList
-			incorrectList.unshift({
+			
+			store.incorrectList.unshift({
 					code: store.answer().code,
 					name: store.answer().name
 			})
-			this.setState({ incorrectList: incorrectList });
 			setTimeout(function() {
 				var obj = {}
 				obj[store.answer().code] = {fillKey: 'defaultFill'}
@@ -72,7 +61,6 @@ export default class Dashboard extends React.Component {
 				store.next()
 			 }.bind(this)
 		    , 1500)
-			//alert('Incorrect !!!') 
 		}
 		/*var obj = {}
 		obj[window.country.iso] = 'green'
@@ -102,8 +90,8 @@ export default class Dashboard extends React.Component {
 		obj[store.answer().code] = 'green'
 		//obj[window.country.iso] = {fillKey: 'Red'}
 		//this.map.updateChoropleth(obj);
-		var incorrectList = this.state.incorrectList
-		incorrectList.unshift({
+
+		store.incorrectList.unshift({
 					code: store.answer().code,
 					name: store.answer().name
 		})
@@ -120,11 +108,8 @@ export default class Dashboard extends React.Component {
 	}
 	
 	showPopUp(e) {
-		if (e.target.value == 'yes')
-			this.showPopUpA = true
-		 else
-			this.showPopUpA = false
-		Map.load_map(this.map, this.showPopUpA)
+		store.showPopUp = e.target.value
+		Map.load_map(store.map, store.showPopUp)
 	}
 	
 	showAnswer(e) {
@@ -150,7 +135,7 @@ export default class Dashboard extends React.Component {
 					Map
 				</Col>
 				<Col sm={2} md={2} lg={2}>
-				  <FormControl onChange={this.change_map.bind(this)} componentClass="select">
+				  <FormControl value={store.map} onChange={this.change_map.bind(this)} componentClass="select">
 					<option value="usa">USA</option>
 					<option value="world">World</option>
 				  </FormControl>
@@ -159,7 +144,7 @@ export default class Dashboard extends React.Component {
 					Show names
 				</Col>
 				<Col sm={2} md={2} lg={2}>
-				  <FormControl onChange={this.showPopUp.bind(this)} componentClass="select">
+				  <FormControl value={store.showPopUp} onChange={this.showPopUp.bind(this)} componentClass="select">
 					<option value="yes">Yes</option>
 					<option value="no">No</option>
 				  </FormControl>
@@ -182,7 +167,7 @@ export default class Dashboard extends React.Component {
 			bottom = (<Button bsStyle="success" onClick={this.answer.bind(this)}>Get Answer</Button>)
 
 		var incorrectList = []
-		this.state.incorrectList.forEach(function(el) {
+		store.incorrectList.forEach(function(el) {
 			incorrectList.push(
 				<div id={el.code}> 
 					{el.name}

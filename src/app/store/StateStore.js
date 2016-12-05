@@ -22,6 +22,15 @@ class StateStore {
 		wrong: 0
 	}
 	
+	@observable
+	incorrectList = []
+	
+	@observable
+	showPopUp = 'yes'
+	
+	@observable
+	map = ''
+	
 	states = states
 	
 	constructor() {
