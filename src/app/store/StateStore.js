@@ -6,6 +6,11 @@ import states from "../../data/usa2"
 
 class StateStore {
 
+	/** NoQuestion, AskQuestion, AnswerQuestion **/
+	@observable	appState = 'NoQuestion'
+	
+	prevState = ''
+	
 	@observable 
 	quiz =
 	{
@@ -22,14 +27,11 @@ class StateStore {
 		wrong: 0
 	}
 	
-	@observable
-	incorrectList = []
+	@observable	incorrectList = []
 	
-	@observable
-	showPopUp = 'yes'
+	@observable	showPopUp = 'yes'
 	
-	@observable
-	map = ''
+	@observable	map = ''
 	
 	states = states
 	
@@ -41,16 +43,32 @@ class StateStore {
 		//console.log('MyData: ', mydata)
 	}
 	
+	start() {
+		this.quiz.id = -1
+		this.incorrectList = []
+		this.result = 
+		{
+			questions: 0,
+			rigth: 0,
+			wrong: 0
+		}
+		this.next()
+	}
+	
 	next() {
 		if (this.quiz.id+1 < this.states.length)
 		{
+			this.appState = 'AskQuestion'
 			this.quiz.id++
 			this.quiz.question = 'Where is located '+this.states[this.quiz.id].name+'?'
 			//this.result.questions++
 			//this.result.rigth++
 		}
 		else
+		{
+			this.appState = 'NoQuestion'
 			this.quiz.question = 'End of Quiz'
+		}
 	}
 	
 	answer() {

@@ -1,8 +1,10 @@
+import "./Dashboard.css"
 import React from "react";
 import { observer } from "mobx-react"
 import { Form, FormGroup, FormControl, ControlLabel, Button, Glyphicon, Panel, Grid, Row, Col } from "react-bootstrap";
 import store from "./store/StateStore"
 import Map from "./Map.js"
+
 
 @observer
 export default class Dashboard extends React.Component {
@@ -33,6 +35,8 @@ export default class Dashboard extends React.Component {
 	}
 	
 	msg() {
+		if  (store.appState != 'AskQuestion') return
+		store.appState = 'AnswerQuestion'
 		store.result.questions++
 		//console.log('answer: ', store.answer(), ' ,click: ', window.country) 
 		if (store.answer().name == window.country.name)
@@ -78,11 +82,18 @@ export default class Dashboard extends React.Component {
 		  , 2500)*/
 	}
 	
+	start() {
+		store.start()
+	}
+	
 	next() {
 		store.next()
 	}
 	
 	answer() {
+		/** From Click on Button "Get Answer" **/
+		if  (store.appState != 'AskQuestion') return
+		store.appState = 'AnswerQuestion'
 		store.result.questions++
 		store.result.wrong++
 		
@@ -104,7 +115,7 @@ export default class Dashboard extends React.Component {
 			Map.updateChoropleth(obj); 
 			store.next()
 			}.bind(this)
-		  , 2000)
+		  , 1200)
 	}
 	
 	showPopUp(e) {
@@ -113,16 +124,23 @@ export default class Dashboard extends React.Component {
 	}
 	
 	showAnswer(e) {
+		/** Click on incorrect List **/
+		if  (store.appState == 'AnswerQuestion') return
 		this.stateAnswer = e.target.id
+		if (this.stateAnswer == '') return
+		store.prevState = store.appState
+		store.appState = 'AnswerQuestion'
+		
 		var obj = {}
 		obj[this.stateAnswer] = 'green'
 		Map.updateChoropleth(obj);
 		setTimeout(function(e) {
 			var obj = {}
 			obj[this.stateAnswer] = {fillKey: 'defaultFill'}
-			Map.updateChoropleth(obj); 
+			Map.updateChoropleth(obj);
+			store.appState = store.prevState
 			}.bind(this)
-		  , 1500)
+		  , 1200)
 	}
 	
 	render() {
@@ -150,8 +168,7 @@ export default class Dashboard extends React.Component {
 				  </FormControl>
 				</Col>
 			</Row>
-		)
-			
+		)	
 		/*const panel1Header = (
 			<div onClick={panel1Toggle}>Question</div>
 		)*/
@@ -161,9 +178,11 @@ export default class Dashboard extends React.Component {
 		)
 	
 		var bottom = (<div></div>)
-		if (store.quiz.id == -1)
-			bottom = (<Button bsStyle="success" onClick={this.next.bind(this)}>Start</Button>)
-		 else if (store.quiz.question != 'End of Quiz')
+		if (store.appState == "NoQuestion")
+			bottom = (<Button bsStyle="success" onClick={this.start.bind(this)}>Start</Button>)
+		 else if (store.appState == "AnswerQuestion")
+			bottom = (<Button bsStyle="success" disabled>Get Answer</Button>)
+		 else
 			bottom = (<Button bsStyle="success" onClick={this.answer.bind(this)}>Get Answer</Button>)
 
 		var incorrectList = []
@@ -192,9 +211,11 @@ export default class Dashboard extends React.Component {
 						<div>Correct: {store.result.rigth}</div>
 						<div>Incorrect: {store.result.wrong}</div>
 					</Panel>
-					<Panel header="Incorrect Answers" bsStyle="warning"
-						style={{height:"140px", overflowY:"scroll"}} onClick={this.showAnswer.bind(this)}>
+					<Panel id="IncorrectPanel" header="Incorrect Answers" bsStyle="warning" 
+						 onClick={this.showAnswer.bind(this)}>
+						  <div style={{height:"100px", overflowY:"scroll", padding:"10px 15px"}}>
 							{incorrectList}
+						  </div>
 					</Panel>
 				  </Col>
 			  </Panel>
