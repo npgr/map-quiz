@@ -1,5 +1,9 @@
 [
   {
+	"code": "AR",
+	"name": "Arkansas"
+  },
+  {
 	"code": "AL",
 	"name": "Alabama" 
   },
@@ -122,10 +126,6 @@
   {
 	"code": "NM",
 	"name": "New Mexico" 
-  },
-  {
-	"code": "NH",
-	"name": "New Hampshire" 
   },
   {
 	"code": "NY",
