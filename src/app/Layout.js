@@ -1,7 +1,7 @@
 import React from 'react';
 //import { Link } from 'react-router';
 
-import Menu from './Menu';
+//import Menu from './Menu';
 
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap';
 
@@ -30,10 +30,10 @@ export default class Layout extends React.Component {
 			  <Nav>
 				<NavItem eventKey={1} href="#">Link</NavItem>
 				<NavItem eventKey={2} href="#">Link</NavItem>
-				<NavDropdown eventKey={3} title="Dropdown" id="basic-nav-dropdown">
-				  <MenuItem eventKey={3.1}>Action</MenuItem>
-				  <MenuItem eventKey={3.2}>Another action</MenuItem>
-				  <MenuItem eventKey={3.3}>Something else here</MenuItem>
+				<NavDropdown eventKey={3} title="Country" id="basic-nav-dropdown">
+				  <MenuItem eventKey={3.1} href="index.html">USA</MenuItem>
+				  <MenuItem eventKey={3.2}>España</MenuItem>
+				  <MenuItem eventKey={3.3} href="Portugal.html">Portugal</MenuItem>
 				  <MenuItem divider />
 				  <MenuItem eventKey={3.3}>Separated link</MenuItem>
 				</NavDropdown>

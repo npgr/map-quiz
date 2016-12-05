@@ -1,0 +1,74 @@
+[
+  {
+	"code": "AV",
+	"name": "Aveiro"
+  },
+  {
+	"code": "SE",
+	"name":"Setúbal"
+  },
+  {
+	"code": "LE",
+	"name": "Leiria"
+  },
+  {
+	"code": "VC",
+	"name":"Viana do Castelo"
+  },
+  {
+	"code": "BE",
+	"name":"Beja"
+  },
+  {
+	"code": "EV",
+	"name":"Évora"
+  },
+  {
+	"code": "FA",
+	"name":"Faro"
+  },
+  {
+	"code": "LI",
+	"name":"Lisboa"
+  },
+  {
+	"code":"PA",
+	"name":"Portalegre"
+  },
+  {
+	"code":"SA",
+	"name":"Santarém"
+  },
+  {
+	"code":"BR",
+	"name":"Braga"
+  },
+  {
+	"code":"BA",
+	"name":"Bragança"
+  },
+  {	
+	"code":"CB",
+	"name":"Castelo Branco"
+  },
+  {
+	"code":"CO",
+	"name":"Coimbra"
+  },
+  {
+	"code": "GU",
+	"name":"Guarda"
+  },
+  {
+	"code":"PO",
+	"name":"Porto"
+  },
+  {
+	"code": "VI",
+	"name":"Viseu"
+  },
+  {
+	"code": "VR",
+	"name":"Vila Real"
+  }
+]

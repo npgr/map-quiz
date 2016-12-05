@@ -15,12 +15,14 @@ export default class Dashboard extends React.Component {
 			panel1Open: true,
 			panel2Open: true,
 		}
-		if (store.map == '') store.map = 'usa'
+		var country = document.getElementById('app').getAttribute('map')
+		//console.log('Country: ', country)
+		store.load_from_url(country)
+		if (store.map == '') store.map = country
 		this.stateAnswer = ''
 		this.panel1Toggle = this.panel1Toggle.bind(this)
 		this.panel2Toggle = this.panel2Toggle.bind(this)
 		setTimeout(function() {
-			//this.load_map('world') }.bind(this)
 			Map.load_map(store.map, store.showPopUp) }.bind(this)
 		  , 1000)
 	}
@@ -35,10 +37,10 @@ export default class Dashboard extends React.Component {
 	}
 	
 	msg() {
+		//console.log('answer: ', store.answer(), ' ,click: ', window.country) 
 		if  (store.appState != 'AskQuestion') return
 		store.appState = 'AnswerQuestion'
 		store.result.questions++
-		//console.log('answer: ', store.answer(), ' ,click: ', window.country) 
 		if (store.answer().name == window.country.name)
 		{
 			store.result.rigth++
@@ -98,7 +100,7 @@ export default class Dashboard extends React.Component {
 		store.result.wrong++
 		
 		var obj = {}
-		obj[store.answer().code] = 'green'
+		obj[store.answer().code] = 'Green'
 		//obj[window.country.iso] = {fillKey: 'Red'}
 		//this.map.updateChoropleth(obj);
 
@@ -107,7 +109,6 @@ export default class Dashboard extends React.Component {
 					name: store.answer().name
 		})
 		Map.updateChoropleth(obj);
-		//console.log(window.country)
 		
 		setTimeout(function() {
 			var obj = {}

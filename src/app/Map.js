@@ -16,10 +16,8 @@ class MapClass {
 	}*/
 	
 	load_map(map, showPopUp) {
-		document.getElementById('theMap').innerHTML = ''
-		this.map = new Datamap({
-            //scope: 'world',
-			//scope: 'usa',
+		
+		var mapObj = {
 			scope: map,
 			projection: 'mercator',
             element: document.getElementById('theMap'),
@@ -76,7 +74,23 @@ class MapClass {
 					"population": 1000
 				}*/
 			}
-		})
+		}
+		if (map == 'prt')
+			mapObj.setProjection = 
+				function(element, options) {
+					var projection, path;
+                    projection = d3.geo.mercator()
+                       .center([-8.80, 39.50])
+                       .scale(3300)
+                       .translate([element.offsetWidth / 2, element.offsetHeight / 2]);
+                         path = d3.geo.path().projection( projection );
+                       return {path: path, projection: projection};
+                }
+				
+			//mapObj.geographyConfig.dataJson= 'https://rawgit.com/markmarkoh/datamaps/master/src/js/data/prt.json'
+		
+		document.getElementById('theMap').innerHTML = ''
+		this.map = new Datamap(mapObj)
 	}
 	
 	updateChoropleth(obj) {
