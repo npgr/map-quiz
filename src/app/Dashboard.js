@@ -1,4 +1,4 @@
-import "./Dashboard.css"
+import "../assets/css/Dashboard.css"
 import React from "react";
 import { observer } from "mobx-react"
 import { Form, FormGroup, FormControl, ControlLabel, Button, Glyphicon, Panel, Grid, Row, Col } from "react-bootstrap";
