@@ -85,6 +85,7 @@ class MapClass {
 			}
 		}
 		if (map == 'prt')
+		{
 			mapObj.setProjection = 
 				function(element, options) {
 					var projection, path;
@@ -97,7 +98,9 @@ class MapClass {
                 }
 				
 			//mapObj.geographyConfig.dataJson= 'https://rawgit.com/markmarkoh/datamaps/master/src/js/data/prt.json'
+		}
 		if (map == 'esp')
+		{
 			mapObj.setProjection = 
 				function(element, options) {
 					var projection, path;
@@ -171,6 +174,7 @@ class MapClass {
 					"region": "Murcia"
 				},
 			}
+		}
 		document.getElementById('theMap').innerHTML = ''
 		this.map = new Datamap(mapObj)
 	}
