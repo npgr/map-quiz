@@ -31,11 +31,6 @@ export default class Dashboard extends React.Component {
 	
 	panel2Toggle = () => this.setState({panel2Open: !this.state.panel2Open})
 	
-	/*change_map(e) {
-		store.map = e.target.value
-		Map.load_map(store.map, store.showPopUp)
-	}*/
-	
 	changeMode(e) {
 		store.setMode(e.target.value)
 	}
@@ -54,7 +49,7 @@ export default class Dashboard extends React.Component {
 			store.result.rigth++
 			var obj = {}
 			obj[store.answer().code] = 'green'
-			Map.updateChoropleth(obj)
+			Map.updateChoropleth(obj, -1, false, false)
 			store.next()	
 		}
 		 else
@@ -62,34 +57,13 @@ export default class Dashboard extends React.Component {
 			store.result.wrong++
 			var obj = {}
 			obj[store.answer().code] = 'green'
-			Map.updateChoropleth(obj)
+			Map.updateChoropleth(obj, 700, true, false)
 			
 			store.incorrectList.unshift({
 					code: store.answer().code,
 					name: store.answer().name
 			})
-			setTimeout(function() {
-				var obj = {}
-				obj[store.answer().code] = {fillKey: 'defaultFill'}
-				Map.updateChoropleth(obj); 
-				store.next()
-			 }.bind(this)
-		    , 700)
 		}
-		/*var obj = {}
-		obj[window.country.iso] = 'green'
-		obj.FRA = 'green'
-		//obj[window.country.iso] = {fillKey: 'Red'}
-		//this.map.updateChoropleth(obj);
-		Map.updateChoropleth(obj);
-		console.log(window.country)
-		
-		setTimeout(function() {
-			var obj = {}
-			obj.FRA = {fillKey: 'defaultFill'}
-			Map.updateChoropleth(obj); 
-			 }.bind(this)
-		  , 2500)*/
 	}
 	
 	start() {
@@ -116,15 +90,7 @@ export default class Dashboard extends React.Component {
 					code: store.answer().code,
 					name: store.answer().name
 		})
-		Map.updateChoropleth(obj);
-		
-		setTimeout(function() {
-			var obj = {}
-			obj[store.answer().code] = {fillKey: 'defaultFill'}
-			Map.updateChoropleth(obj); 
-			store.next()
-			}.bind(this)
-		  , 700)
+		Map.updateChoropleth(obj, 700, true, false);
 	}
 	
 	showPopUp(e) {
@@ -142,14 +108,7 @@ export default class Dashboard extends React.Component {
 		
 		var obj = {}
 		obj[this.stateAnswer] = 'green'
-		Map.updateChoropleth(obj);
-		setTimeout(function(e) {
-			var obj = {}
-			obj[this.stateAnswer] = {fillKey: 'defaultFill'}
-			Map.updateChoropleth(obj);
-			store.appState = store.prevState
-			}.bind(this)
-		  , 700)
+		Map.updateChoropleth(obj, 700, false, true);
 	}
 	
 	render() {

@@ -1,10 +1,11 @@
 //import "../assets/maps/topojson.min.js"
 //import "../assets/maps/d3.min.js"
 //import "../assets/maps/datamaps.all.hires.min.js"
+import store from "./store/StateStore"
 
 class MapClass {
 
-
+	stateAnswer = ''
 	/*load_map(map) {
 		var my_awesome_script = document.createElement('script');
 		my_awesome_script.setAttribute('src','assets/maps/datamaps.all.hires.min.js');
@@ -173,10 +174,37 @@ class MapClass {
 		this.map = new Datamap(mapObj)
 	}
 	
-	updateChoropleth(obj) {
+	updateChoropleth(obj, timeout, next, prevState) {
 		this.map.updateChoropleth(obj);
+		this.stateAnswer = Object.keys(obj)[0]
+		if (timeout != -1)
+		{
+		  if (next)
+			setTimeout(function() {
+				var obj = {}
+				//obj[store.answer().code] = {fillKey: 'defaultFill'}
+				obj[this.stateAnswer] = {fillKey: 'defaultFill'}
+				this.map.updateChoropleth(obj); 
+				store.next()
+			}.bind(this)
+		    , timeout)
+		  else if (prevState)
+			setTimeout(function() {
+				var obj = {}
+				obj[this.stateAnswer] = {fillKey: 'defaultFill'}
+				this.map.updateChoropleth(obj); 
+				store.appState = store.prevState
+			}.bind(this)
+		    , timeout)
+		  else 
+			setTimeout(function() {
+				var obj = {}
+				obj[this.stateAnswer] = {fillKey: 'defaultFill'}
+				this.map.updateChoropleth(obj); 
+			}.bind(this)
+		    , timeout)
+		}
 	}
-	
 	
 	loadx_map () {
 		var election = new Datamap({
