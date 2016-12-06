@@ -1,3 +1,7 @@
 #IncorrectPanel .panel-body {
 	padding: 0;
 }
+
+#IncorrectPanel .panel-body div div:hover{
+	background-color: gainsboro;
+}

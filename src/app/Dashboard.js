@@ -31,14 +31,18 @@ export default class Dashboard extends React.Component {
 	
 	panel2Toggle = () => this.setState({panel2Open: !this.state.panel2Open})
 	
-	change_map(e) {
+	/*change_map(e) {
 		store.map = e.target.value
 		Map.load_map(store.map, store.showPopUp)
+	}*/
+	
+	changeMode(e) {
+		store.setMode(e.target.value)
 	}
 	
 	msg() {
 		//console.log('answer: ', store.answer(), ' ,click: ', window.country) 
-		if  (store.appState != 'AskQuestion') return
+		if  (store.appState != 'AskQuestion' || store.mode == 'learning') return
 		store.appState = 'AnswerQuestion'
 		store.result.questions++
 		if (store.answer().name == window.country.name)
@@ -66,7 +70,7 @@ export default class Dashboard extends React.Component {
 				Map.updateChoropleth(obj); 
 				store.next()
 			 }.bind(this)
-		    , 1500)
+		    , 700)
 		}
 		/*var obj = {}
 		obj[window.country.iso] = 'green'
@@ -116,7 +120,7 @@ export default class Dashboard extends React.Component {
 			Map.updateChoropleth(obj); 
 			store.next()
 			}.bind(this)
-		  , 1200)
+		  , 700)
 	}
 	
 	showPopUp(e) {
@@ -141,7 +145,7 @@ export default class Dashboard extends React.Component {
 			Map.updateChoropleth(obj);
 			store.appState = store.prevState
 			}.bind(this)
-		  , 1200)
+		  , 700)
 	}
 	
 	render() {
@@ -151,12 +155,12 @@ export default class Dashboard extends React.Component {
 		const panel1Header = (
 			<Row> 
 				<Col sm={1} md={1} lg={1} style={{marginTop: "10px", marginLeft: "25px"}} componentClass={ControlLabel}>
-					Map
+					Mode
 				</Col>
 				<Col sm={2} md={2} lg={2}>
-				  <FormControl value={store.map} onChange={this.change_map.bind(this)} componentClass="select">
-					<option value="usa">USA</option>
-					<option value="world">World</option>
+				  <FormControl value={store.mode} onChange={this.changeMode.bind(this)} componentClass="select">
+					<option value="learning">Learning</option>
+					<option value="quiz">Quiz</option>
 				  </FormControl>
 				</Col>
 				<Col sm={2} md={2} lg={2} style={{marginTop: "10px", marginLeft: "25px"}} componentClass={ControlLabel}>
@@ -186,13 +190,52 @@ export default class Dashboard extends React.Component {
 		 else
 			bottom = (<Button bsStyle="success" onClick={this.answer.bind(this)}>Get Answer</Button>)
 
-		var incorrectList = []
-		store.incorrectList.forEach(function(el) {
-			incorrectList.push(
-				<div id={el.code}> 
-					{el.name}
-				</div>)
-		})
+		if (store.mode == 'quiz')
+		{
+			var incorrectList = []
+			store.incorrectList.forEach(function(el) {
+				incorrectList.push(
+					<div id={el.code}> 
+						{el.name}
+					</div>)
+			})
+			var panels = ([
+				<Panel header="Question" collapsible expanded={panel1Open} bsStyle="success">
+					<div>{store.quiz.question}</div>
+					<div>{store.quiz.answer}</div>
+					<div style={{marginTop: '10px'}}>{bottom}</div>
+				</Panel>,
+				<Panel style={{padding:"0"}} collapsible expanded={panel2Open} header={panel2Header} bsStyle='primary'>
+					<div>Questions: {store.result.questions}</div>
+					<div>Correct: {store.result.rigth}</div>
+					<div>Incorrect: {store.result.wrong}</div>
+				</Panel>,
+				<Panel id="IncorrectPanel" header="Incorrect Answers" bsStyle="warning" 
+					   onClick={this.showAnswer.bind(this)}>
+					<div style={{height:"100px", overflowY:"scroll", padding:"10px 15px"}}>
+						{incorrectList}
+					</div>
+				</Panel>
+			])
+		}
+		else /** store.mode == 'learning' **/
+		{
+			var statesList = []
+			store.states.forEach(function(el) {
+				statesList.push(
+					<div id={el.code}> 
+						{el.name}
+					</div>)
+			})
+			var panels = (
+				<Panel id="IncorrectPanel" header="States" bsStyle="warning" 
+					   onClick={this.showAnswer.bind(this)}>
+					<div style={{height:"370px", overflowY:"scroll", padding:"10px 15px"}}>
+						{statesList}
+					</div>
+				</Panel>
+			)
+		}
 	  return (
 		<Grid>
 		  <Row>
@@ -202,22 +245,7 @@ export default class Dashboard extends React.Component {
 					<div id="theMap" onClick={this.msg.bind(this)}>Loading Map...</div>
 				  </Col>
 				  <Col style={{padding:"0"}} sm={3} md={3} lg={3}>
-					<Panel header="Question" collapsible expanded={panel1Open} bsStyle="success">
-						<div>{store.quiz.question}</div>
-						<div>{store.quiz.answer}</div>
-						<div style={{marginTop: '10px'}}>{bottom}</div>
-					</Panel>
-					<Panel style={{padding:"0"}} collapsible expanded={panel2Open} header={panel2Header} bsStyle="primary">
-						<div>Questions: {store.result.questions}</div>
-						<div>Correct: {store.result.rigth}</div>
-						<div>Incorrect: {store.result.wrong}</div>
-					</Panel>
-					<Panel id="IncorrectPanel" header="Incorrect Answers" bsStyle="warning" 
-						 onClick={this.showAnswer.bind(this)}>
-						  <div style={{height:"100px", overflowY:"scroll", padding:"10px 15px"}}>
-							{incorrectList}
-						  </div>
-					</Panel>
+					  {panels}
 				  </Col>
 			  </Panel>
 			</Col>

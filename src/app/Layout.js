@@ -22,7 +22,7 @@ export default class Layout extends React.Component {
 		  <Navbar inverse collapseOnSelect>
 			<Navbar.Header>
 			  <Navbar.Brand>
-				<div onClick={goPage} id="/">MAP Stats</div>
+				<div>MAP Quiz</div>
 			  </Navbar.Brand>
 			  <Navbar.Toggle />
 			</Navbar.Header>
@@ -35,7 +35,9 @@ export default class Layout extends React.Component {
 				  <MenuItem eventKey={3.2} href="Espana.html">España</MenuItem>
 				  <MenuItem eventKey={3.3} href="Portugal.html">Portugal</MenuItem>
 				  <MenuItem divider />
-				  <MenuItem eventKey={3.3}>Separated link</MenuItem>
+				  <MenuItem eventKey={3.3} href="world.html">World</MenuItem>
+				  <MenuItem eventKey={3.3} href="europe.html">Europe</MenuItem>
+				  <MenuItem eventKey={3.3} href="america.html">America</MenuItem>
 				</NavDropdown>
 			  </Nav>
 			  <Nav pullRight>

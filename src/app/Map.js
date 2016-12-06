@@ -115,27 +115,21 @@ class MapClass {
 			mapObj.data = {
 				"CT": {
 					"region": "Cataluña",
-					"fillKey": "Yellow"
 				},
 				"PV": {
 					"region": "Pais Vasco",
-					"fillKey": "Orange"
 				},
 				"CM": {
 					"region": "Castilla - La Mancha",
-					"fillKey": "Green"
 				},
 				"VC": {
 					"region": "Comunidad Valenciana",
-					"fillKey": "Red"
 				},
 				"AN": {
 					"region": "Andalucia",
-					"fillKey": "Pink"
 				},
 				"AS": {
 					"region": "Principado Asturias",
-					"fillKey": "Blue"
 				},
 				"CL": {
 					"region": "Castilla y León"

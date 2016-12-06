@@ -33,7 +33,9 @@ class StateStore {
 	
 	@observable	map = ''
 	
-	//states = states
+	@observable mode = 'learning'
+	
+	@observable states = []
 	
 	constructor() {
 		
@@ -41,6 +43,41 @@ class StateStore {
 		//console.log('this.states: ', this.states) 
 		//this.load_from_url('usa')
 		//console.log('MyData: ', mydata)
+	}
+	
+	setMode(mode)
+	{
+		function compare(a,b) {
+				if (a.name < b.name)
+					return -1;
+				if (a.name > b.name)
+					return 1;
+				return 0;
+		}
+		this.mode = mode
+		
+		if (mode == 'learning')
+		{
+			this.states = this.states.sort(compare)
+			this.appState = 'NoQuestion'
+		}
+		else /** mode = quiz **/
+		{
+			this.appState = 'NoQuestion'
+			this.quiz =
+			{
+				id: -1,
+				question: 'Press Button for Starting Quiz',
+				answer: ''
+			}
+			this.result = 
+			{
+				questions: 0,
+				rigth: 0,
+				wrong: 0
+			}
+			this.incorrectList = []
+		}
 	}
 	
 	start() {
@@ -94,6 +131,7 @@ class StateStore {
 	}
 	
 	load_from_url(country) {
+		
 		/*fetch('data/usa2.json')
 		.then(function(res) {
 				console.log('fetch maps: ', res)
@@ -101,7 +139,14 @@ class StateStore {
 			})*/
 		axios.get('data/'+country+'.json')
 			.then(function(res) {
-				this.states = res.data
+				function compare(a,b) {
+					if (a.name < b.name)
+						return -1;
+					if (a.name > b.name)
+						return 1;
+					return 0;
+				}
+				this.states = res.data.sort(compare)
 			}.bind(this))
 			.catch(function (error) {
 				console.log(error);
