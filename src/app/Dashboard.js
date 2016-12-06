@@ -40,6 +40,10 @@ export default class Dashboard extends React.Component {
 		store.setMode(e.target.value)
 	}
 	
+	changeLanguage(e) {
+		store.changeLanguage(e.target.value)
+	}
+	
 	msg() {
 		//console.log('answer: ', store.answer(), ' ,click: ', window.country) 
 		if  (store.appState != 'AskQuestion' || store.mode == 'learning') return
@@ -228,7 +232,7 @@ export default class Dashboard extends React.Component {
 					</div>)
 			})
 			var panels = (
-				<Panel id="IncorrectPanel" header="States" bsStyle="warning" 
+				<Panel id="IncorrectPanel" header={'States ('+store.states.length+')'} bsStyle="warning" 
 					   onClick={this.showAnswer.bind(this)}>
 					<div style={{height:"370px", overflowY:"scroll", padding:"10px 15px"}}>
 						{statesList}

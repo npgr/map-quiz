@@ -28,21 +28,23 @@ export default class Layout extends React.Component {
 			</Navbar.Header>
 			<Navbar.Collapse>
 			  <Nav>
-				<NavItem eventKey={1} href="#">Link</NavItem>
-				<NavItem eventKey={2} href="#">Link</NavItem>
-				<NavDropdown eventKey={3} title="Country" id="basic-nav-dropdown">
-				  <MenuItem eventKey={3.1} href="index.html">USA</MenuItem>
-				  <MenuItem eventKey={3.2} href="Espana.html">España</MenuItem>
-				  <MenuItem eventKey={3.3} href="Portugal.html">Portugal</MenuItem>
+				<NavDropdown eventKey={1} title="Country" id="basic-nav-dropdown">
+				  <MenuItem eventKey={1.1} href="index.html">USA</MenuItem>
+				  <MenuItem eventKey={1.2} href="Espana.html">España</MenuItem>
+				  <MenuItem eventKey={1.3} href="Portugal.html">Portugal</MenuItem>
 				  <MenuItem divider />
-				  <MenuItem eventKey={3.3} href="world.html">World</MenuItem>
-				  <MenuItem eventKey={3.3} href="europe.html">Europe</MenuItem>
-				  <MenuItem eventKey={3.3} href="america.html">America</MenuItem>
+				  <MenuItem eventKey={1.4} href="world.html">World</MenuItem>
+				  <MenuItem eventKey={1.5} href="europe.html">Europe</MenuItem>
+				  <MenuItem eventKey={1.6} href="america.html">America</MenuItem>
+				</NavDropdown>
+				<NavDropdown eventKey={2} title="Language" id="basic-nav-dropdown">
+				  <MenuItem eventKey={2.1}>English</MenuItem>
+				  <MenuItem eventKey={2.2}>Spanish</MenuItem>
+				  <MenuItem eventKey={2.3}>Portuguese</MenuItem>
 				</NavDropdown>
 			  </Nav>
 			  <Nav pullRight>
-				<NavItem eventKey={1} onClick={goPage} id="about">About</NavItem>
-				<NavItem eventKey={2} href="#">Link Right</NavItem>
+				<NavItem eventKey={5} onClick={goPage} id="about">About</NavItem>
 			  </Nav>
 			</Navbar.Collapse>
 		  </Navbar>

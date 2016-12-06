@@ -35,6 +35,8 @@ class StateStore {
 	
 	@observable mode = 'learning'
 	
+	@observable language = 'en'
+	
 	@observable states = []
 	
 	constructor() {
@@ -78,6 +80,11 @@ class StateStore {
 			}
 			this.incorrectList = []
 		}
+	}
+	
+	changeLanguage(language)
+	{
+		store.language = language
 	}
 	
 	start() {
