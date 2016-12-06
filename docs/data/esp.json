@@ -1,0 +1,66 @@
+[
+  {
+	"code": "PV",
+	"name": "Pais Vasco"
+  },
+  {
+	"code": "CM",
+	"name": "Castilla - La Mancha" 
+  },
+  {
+	"code": "VC",
+	"name": "Comunidad Valenciana" 
+  },
+  {
+	"code": "AN",
+	"name": "Andalucia" 
+  },
+  {
+	"code": "AS",
+	"name": "Principado de Asturias" 
+  },
+  {
+	"code": "CL",
+	"name": "Castilla y León" 
+  },
+  {
+	"code": "EX",
+	"name": "Extremadura" 
+  },
+  {
+	"code": "PM",
+	"name": "Islas Baleares" 
+  },
+  {
+	"code": "CT",
+	"name": "Cataluña" 
+  },
+  {
+	"code": "CB",
+	"name": "Cantabria" 
+  },
+  {
+	"code": "MD",
+	"name": "Comunidad de Madrid" 
+  },
+  {
+	"code": "AR",
+	"name": "Aragon" 
+  },
+  {
+	"code": "GA",
+	"name": "Galicia" 
+  },
+  {
+	"code": "LO",
+	"name": "La Rioja" 
+  },
+  {
+	"code": "NA",
+	"name": "Navarra" 
+  },
+  {
+	"code": "MU",
+	"name": "Murcia" 
+  }
+]

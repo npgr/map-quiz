@@ -32,7 +32,7 @@ export default class Layout extends React.Component {
 				<NavItem eventKey={2} href="#">Link</NavItem>
 				<NavDropdown eventKey={3} title="Country" id="basic-nav-dropdown">
 				  <MenuItem eventKey={3.1} href="index.html">USA</MenuItem>
-				  <MenuItem eventKey={3.2}>España</MenuItem>
+				  <MenuItem eventKey={3.2} href="Espana.html">España</MenuItem>
 				  <MenuItem eventKey={3.3} href="Portugal.html">Portugal</MenuItem>
 				  <MenuItem divider />
 				  <MenuItem eventKey={3.3}>Separated link</MenuItem>

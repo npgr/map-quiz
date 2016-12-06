@@ -47,11 +47,20 @@ class MapClass {
 				//Load some data
 				window.country = geography.properties
 				if (showPopUp=='yes')
-					return '<div class="hoverinfo">' + geography.properties.name 
+					if (map == 'esp')
+						return '<div class="hoverinfo">' + geography.properties.name 
+                                + '<br>'+data.region+'</div>' 
+					else
+					  return '<div class="hoverinfo">' + geography.properties.name 
 				//+ '<br>Population: '+data.population+'</div>'
 			  },
             },
 			fills: {
+              'Brown': 'brown',
+			  'Blue': 'blue',
+			  'Pink': 'pink',
+			  'Orange': 'orange',
+			  'Yellow': 'yellow',
               'Red': 'red',
 			  'Green': 'green',
 			  'defaultFill': '#dddddd' 
@@ -88,7 +97,80 @@ class MapClass {
                 }
 				
 			//mapObj.geographyConfig.dataJson= 'https://rawgit.com/markmarkoh/datamaps/master/src/js/data/prt.json'
-		
+		if (map == 'esp')
+			mapObj.setProjection = 
+				function(element, options) {
+					var projection, path;
+                    projection = d3.geo.mercator()
+                       .center([-93.00, 40.08])
+					   .rotate([-90.0, 0])
+                       .scale(2300)
+                       .translate([element.offsetWidth / 2, element.offsetHeight / 2]);
+                         path = d3.geo.path().projection( projection );
+                       return {path: path, projection: projection};
+                }
+			mapObj.data = {
+				"CT": {
+					"region": "Cataluña",
+					"fillKey": "Yellow"
+				},
+				"PV": {
+					"region": "Pais Vasco",
+					"fillKey": "Orange"
+				},
+				"CM": {
+					"region": "Castilla - La Mancha",
+					"fillKey": "Green"
+				},
+				"VC": {
+					"region": "Comunidad Valenciana",
+					"fillKey": "Red"
+				},
+				"AN": {
+					"region": "Andalucia",
+					"fillKey": "Pink"
+				},
+				"AS": {
+					"region": "Principado Asturias",
+					"fillKey": "Blue"
+				},
+				"CL": {
+					"region": "Castilla y León"
+				},
+				"EX": {
+					"region": "Extremadura"
+				},
+				"PM": {
+					"region": "Islas Baleares"
+				},
+				"CT": {
+					"region": "Cataluña"
+				},
+				"CB": {
+					"region": "Cantabria"
+				},
+				"MD": {
+					"region": "Comunidad de Madrid"
+				},
+				"AR": {
+					"region": "Aragón"
+				},
+				"GA": {
+					"region": "Galicia"
+				},
+				"LO": {
+					"region": "La Rioja"
+				},
+				"CM": {
+					"region": "Castilla - La Mancha"
+				},
+				"NA": {
+					"region": "Navarra"
+				},
+				"MU": {
+					"region": "Murcia"
+				},
+			}
 		document.getElementById('theMap').innerHTML = ''
 		this.map = new Datamap(mapObj)
 	}
