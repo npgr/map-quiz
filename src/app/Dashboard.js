@@ -32,7 +32,10 @@ export default class Dashboard extends React.Component {
 	panel2Toggle = () => this.setState({panel2Open: !this.state.panel2Open})
 	
 	changeMode(e) {
-		store.setMode(e.target.value)
+		var mode = e.target.value
+		store.setMode(mode)
+		if (mode == 'quiz')
+			Map.resetChoropleth()
 	}
 	
 	changeLanguage(e) {
@@ -99,16 +102,39 @@ export default class Dashboard extends React.Component {
 	}
 	
 	showAnswer(e) {
-		/** Click on incorrect List **/
+		/** Click on incorrect List or in Learning Mode **/
 		if  (store.appState == 'AnswerQuestion') return
 		this.stateAnswer = e.target.id
 		if (this.stateAnswer == '') return
-		store.prevState = store.appState
-		store.appState = 'AnswerQuestion'
 		
+		if (store.mode == 'quiz')
+		{
+			store.prevState = store.appState
+			store.appState = 'AnswerQuestion'
+		}
+		
+		var stateSelected = false
+		var timeout = 700
+		if (store.mode == 'learning')
+		{
+			timeout = -1
+			var change = true
+			stateSelected = store.stateSelected(this.stateAnswer, change)
+			//console.log('stateSelected: ', stateSelected)
+		}
 		var obj = {}
-		obj[this.stateAnswer] = 'green'
-		Map.updateChoropleth(obj, 700, false, true);
+		if (stateSelected)
+		{
+			obj[this.stateAnswer] = 'green'
+			e.target.setAttribute('selected','')
+		}
+		 else 
+		 {
+			obj[this.stateAnswer] = {fillKey: 'defaultFill'}
+			e.target.removeAttribute('selected')
+		 }
+		
+		Map.updateChoropleth(obj, timeout, false, true);
 	}
 	
 	render() {
@@ -185,7 +211,17 @@ export default class Dashboard extends React.Component {
 		{
 			var statesList = []
 			store.states.forEach(function(el) {
-				statesList.push(
+				if (el.selected)
+				{
+				  //console.log('state updated: ', el.code)
+				  statesList.push(
+				    /** This does not work **/
+					<div id={el.code} style={{backgroundColor:"gainsboro"}}> 
+						{el.name}
+					</div>)
+				}
+				 else 
+					statesList.push(
 					<div id={el.code}> 
 						{el.name}
 					</div>)

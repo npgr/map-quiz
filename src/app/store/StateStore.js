@@ -47,6 +47,25 @@ class StateStore {
 		//console.log('MyData: ', mydata)
 	}
 	
+	stateSelected(state, change)
+	{
+		var selected = false
+		
+		for (var i=0; i < this.states.length; i++)
+			if (this.states[i].code == state)
+			{
+				if (typeof this.states[i].selected == 'undefined')
+					selected = false
+				 else
+					selected = this.states[i].selected
+				if (change)
+					this.states[i].selected = !selected
+				
+				return this.states[i].selected
+			}
+		return selected
+	}
+	
 	setMode(mode)
 	{
 		function compare(a,b) {
@@ -61,10 +80,13 @@ class StateStore {
 		if (mode == 'learning')
 		{
 			this.states = this.states.sort(compare)
-			this.appState = 'NoQuestion'
 		}
 		else /** mode = quiz **/
 		{
+			this.appState = 'NoQuestion'
+			for (var i=0; i<this.states.length; i++)
+				if (this.states[i].selected)
+					this.states[i].selected = false
 			this.appState = 'NoQuestion'
 			this.quiz =
 			{

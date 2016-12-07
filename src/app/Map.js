@@ -174,6 +174,10 @@ class MapClass {
 		this.map = new Datamap(mapObj)
 	}
 	
+	resetChoropleth() {
+		this.map.updateChoropleth(null, {reset: true})
+	}
+	
 	updateChoropleth(obj, timeout, next, prevState) {
 		this.map.updateChoropleth(obj);
 		this.stateAnswer = Object.keys(obj)[0]

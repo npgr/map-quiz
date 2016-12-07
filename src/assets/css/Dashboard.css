@@ -5,3 +5,8 @@
 #IncorrectPanel .panel-body div div:hover{
 	background-color: gainsboro;
 }
+
+[selected] {
+	background-color: DarkSeaGreen;
+	color: white;
+}
