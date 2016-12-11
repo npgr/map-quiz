@@ -216,7 +216,7 @@ export default class Dashboard extends React.Component {
 				  //console.log('state updated: ', el.code)
 				  statesList.push(
 				    /** This does not work **/
-					<div id={el.code} style={{backgroundColor:"gainsboro"}}> 
+					<div id={el.code} selected> 
 						{el.name}
 					</div>)
 				}
